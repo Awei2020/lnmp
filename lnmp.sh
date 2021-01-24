@@ -66,7 +66,7 @@ function php(){
 echo -e "\033[32m 安装PHP  \033[0m"
 sleep 2
 php=`rpm -qa php*`
-if [ ${php}x != "x" ];then
+if [ "${php}x" != "x" ];then
 	echo -e "\033[32m 存在php环境  \033[0m"
 	exit 1
 else
