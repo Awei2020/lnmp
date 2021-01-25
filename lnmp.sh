@@ -23,38 +23,8 @@ else
 	echo -e "\033[32m 安装失败，重启脚本 \033[0m"
 	exit 1
 fi
-echo 'user  nginx;
-worker_processes  1;
-events {
-    worker_connections  1024;
-}
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
-    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                    '$status $body_bytes_sent "$http_referer" '
-                    '"$http_user_agent" "$http_x_forwarded_for" ';
-    access_log  /var/log/nginx/access.log  main;
-    error_log  /var/log/nginx/error.log warn;
-
-    server {
-            listen       80;
-            server_name  10.0.0.30;
-            location / {
-                root   html;
-                index  index.html index.php;
-            }
-            location ~ \.php$ {
-                root html;
-                fastcgi_index index.php;
-                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                fastcgi_pass  127.0.0.1:9000;
-                include fastcgi_params;
-            }
-    }
-}' > /etc/nginx/nginx.conf
+rm -f /etc/nginx/nginx.conf
+mv ./nginx.conf /etc/nginx/nginx.conf
 systemctl start nginx
 systemctl enable nginx
 
@@ -79,6 +49,8 @@ else
 fi
 
 echo -e "\033[32m 请修改/etc/php-fpm.d/www.conf下的user和group为nginx  \033[0m"
+rm -f /etc/php-fpm.d/www.conf
+mv ./www.conf /etc/php-fpm.d/www.conf
 systemctl start php-fpm.service
 systemctl enable php-fpm.service
 echo -e "\033[32m 安装成功  \033[0m"
