@@ -46,6 +46,7 @@ if [ $? == 0 ];then
 	yum install -y php71w php71w-cli php71w-common php71w-devel php71w-embedded php71w-gd php71w-mcrypt php71w-mbstring php71w-pdo php71w-xml php71w-fpm php71w-mysqlnd php71w-opcache php71w-pecl-memcached php71w-pecl-redis php71w-pecl-mongodb
 else
 	echo -e "\033[32m PHP安装失败  \033[0m"
+	exit 1
 fi
 
 echo -e "\033[32m 请修改/etc/php-fpm.d/www.conf下的user和group为nginx  \033[0m"
